@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malli Dress Shop</title>
+  <!-- Google Fonts: Ballet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ballet&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <div class="logo ballet-logo">Malli</div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <span class="hamburger"></span>
+        </button>
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="sale.html">Sale</a></li>
+          </ul>
+        </nav>
+      </header>
+      
+
+  <main>
+    <section class="hero">
+      <h1>Elegance in Every Stitch</h1>
+    </section>
+  </main>
+ 
+  
+  <section class="filter-controls">
+    <button data-filter="all" class="active">All</button>
+    <button data-filter="dress">Dress</button>
+    <button data-filter="skirt">Skirt</button>
+   
+  </section>
+  
+  <section class="product-gallery">
+    <!-- 6 Dress images -->
+    <div class="product-item dress">
+      <img src="assets/IMG_9936.jpg" alt="Dress 1" />
+      <p>Elegant Red Dress</p>
+    </div>
+    <div class="product-item dress">
+      <img src="assets/IMG_9937.jpg" alt="Dress 2" />
+      <p>Silk Gown</p>
+    </div>
+    <div class="product-item dress">
+      <img src="assets/IMG_9924.jpg" alt="Dress 3" />
+      <p>Summer Dress</p>
+    </div>
+    <div class="product-item dress">
+      <img src="assets/IMG_9925.jpg" alt="Dress 4" />
+      <p>Floral Dress</p>
+    </div>
+    <div class="product-item dress">
+      <img src="assets/IMG_9926.jpg" alt="Dress 5" />
+      <p>Black Dress</p>
+    </div>
+    <div class="product-item dress">
+      <img src="assets/IMG_9927.jpg" alt ="Dress 6" />
+      <p>Evening Dress</p>
+    </div>
+  
+    <!-- 6 Skirt images -->
+    <div class="product-item skirt">
+      <img src="assets/IMG_9928.jpg" alt="Skirt 1" />
+      <p>Pleated Skirt</p>
+    </div>
+    <div class="product-item skirt">
+      <img src="assets/IMG_9929.jpg" alt="Skirt 2" />
+      <p>Denim Skirt</p>
+    </div>
+    <div class="product-item skirt">
+      <img src="assets/IMG_9930.jpg" alt="Skirt 3" />
+      <p>Mini Skirt</p>
+    </div>
+    <div class="product-item skirt">
+      <img src="assets/IMG_9932.jpg" alt="Skirt 4" />
+      <p>Leather Skirt</p>
+    </div>
+    <div class="product-item skirt">
+      <img src="assets/IMG_9933.jpg" alt="Skirt 5" />
+      <p>Maxi Skirt</p>
+    </div>
+    <div class="product-item skirt">
+      <img src="assets/IMG_9935.jpg" alt="Skirt 6" />
+      <p>Wrap Skirt</p>
+    </div>
+  
+   
+  </section>
+  
+  <div class="carousel">
+    <button class="carousel-button prev">&#10094;</button>
+    <div class="carousel-track-container">
+      <ul class="carousel-track">
+        <li class="carousel-slide current-slide"><img src="https://via.placeholder.com/800x400?text=Slide+1" alt="Slide 1"></li>
+        <li class="carousel-slide"><img src="https://via.placeholder.com/800x400?text=Slide+2" alt="Slide 2"></li>
+        <li class="carousel-slide"><img src="https://via.placeholder.com/800x400?text=Slide+3" alt="Slide 3"></li>
+      </ul>
+    </div>
+    <button class="carousel-button next">&#10095;</button>
+  </div>
+
+  
+  <footer>
+    <p>&copy; 2025 Malli Dress Shop. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

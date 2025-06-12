@@ -34,6 +34,7 @@
       padding: 1.2rem 2rem;
       box-shadow: 0 2px 10px rgba(83, 54, 78, 0.4);
       position: relative;
+      z-index: 1000;
     }
 
     .logo {
@@ -41,6 +42,10 @@
       font-weight: 400;
       font-family: 'Ballet', cursive;
       cursor: default;
+    }
+
+    nav {
+      position: relative;
     }
 
     nav ul {
@@ -69,7 +74,8 @@
       border: none;
       cursor: pointer;
       padding: 0.5rem;
-      z-index: 1001;
+      z-index: 1100;
+      position: relative;
     }
 
     .hamburger,
@@ -113,13 +119,10 @@
       top: 0;
     }
 
-    nav {
-      position: relative;
-    }
-
+    /* Mobile styles */
     @media (max-width: 768px) {
-      .nav-toggle {
-        display: block;
+      header {
+        padding: 1rem 1.5rem;
       }
 
       nav ul {
@@ -127,21 +130,55 @@
         background-color: #53364e;
         position: absolute;
         top: 100%;
-        left: 0;
-        width: 100%;
-        display: none;
-        margin: 0;
-        padding: 1rem 0;
+        right: 0;
+        width: 200px;
+        border-radius: 0 0 0 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        z-index: 1050;
       }
+
       nav.open ul {
-        display: flex;
+        max-height: 500px;
       }
 
       nav li {
+        padding: 0.8rem 1rem;
         text-align: center;
-        padding: 0.5rem 0;
+        margin: 0;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      nav li + li {
+        border-top: 1px solid rgba(255,255,255,0.2);
+      }
+
+      nav li a {
+        padding: 0;
+        font-size: 1.2rem;
+        display: block;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .logo {
+        font-size: 1.8rem;
       }
     }
+    footer {
+      text-align: center;
+      background-color: #53364e;
+      color: #f5f5dc;
+      padding: 1rem;
+      font-size: 0.9rem;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
 
     /* Main content styles */
     main {
@@ -233,7 +270,7 @@
     </button>
     <nav>
       <ul>
-        <li><a href="index.html" >Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="sale.html">Sale</a></li>
@@ -264,19 +301,21 @@
       <button type="submit">Order via WhatsApp</button>
     </form>
   </main>
+  <footer>
+    &copy; 2025 Malli Dress Shop. All rights reserved.
+  </footer>
 
   <script>
     // Mobile nav toggle
     const toggle = document.querySelector('.nav-toggle');
     const nav = document.querySelector('nav');
+
     toggle.addEventListener('click', () => {
       nav.classList.toggle('open');
       toggle.classList.toggle('active');
     });
 
     // Size calculation logic
-    // Sample size chart (can be adjusted)
-    // Sizes based on bust, waist, hips (cm)
     const sizeChart = [
       { size: 'S', bust: 84, waist: 66, hips: 90, heightMin: 150, heightMax: 165 },
       { size: 'M', bust: 90, waist: 72, hips: 96, heightMin: 160, heightMax: 175 },
@@ -301,15 +340,12 @@
         return;
       }
 
-      // Find closest size by comparing input to size chart
-      // We’ll pick the size where bust, waist, hips are >= input and height in range
       let matched = sizeChart.find(size => {
         return bust <= size.bust && waist <= size.waist && hips <= size.hips &&
                height >= size.heightMin && height <= size.heightMax;
       });
 
       if (!matched) {
-        // If no perfect fit, find closest by bust difference and height
         matched = sizeChart.reduce((prev, curr) => {
           const prevDiff = Math.abs(bust - prev.bust) + Math.abs(waist - prev.waist) + Math.abs(hips - prev.hips);
           const currDiff = Math.abs(bust - curr.bust) + Math.abs(waist - curr.waist) + Math.abs(hips - curr.hips);
@@ -344,11 +380,9 @@
         return;
       }
 
-      const phone = "77751062140";
-// WhatsApp number without "+" and spaces
+      const phone = "77751062140"; // WhatsApp number without "+" and spaces
       const message = `Hello! I would like to order a dress.\nMy measurements:\n- Bust: ${bust} cm\n- Waist: ${waist} cm\n- Hips: ${hips} cm\n- Height: ${height} cm\nSuggested size: ${size}`;
 
-      // Encode message for URL
       const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
       window.open(url, '_blank');

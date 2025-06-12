@@ -24,6 +24,7 @@
       align-items: center;
       padding: 1.2rem 2rem;
       position: relative;
+      z-index: 10;
     }
 
     .logo {
@@ -33,10 +34,16 @@
       animation: glow 3s infinite alternate;
     }
 
+    nav {
+      position: relative; /* Added for absolute positioning context */
+    }
+
     nav ul {
       display: flex;
       list-style: none;
       gap: 2rem;
+      position: static; /* default */
+      z-index: auto;
     }
 
     nav a {
@@ -61,31 +68,50 @@
       width: 100%;
     }
 
+    /* Updated nav-toggle and hamburger styles */
     .nav-toggle {
       display: none;
-      background: none;
+      background: transparent;
       border: none;
       cursor: pointer;
+      z-index: 10;
     }
 
-    .hamburger, .hamburger::before, .hamburger::after {
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
       width: 25px;
       height: 3px;
       background-color: white;
       display: block;
-      border-radius: 2px;
-      transition: 0.3s;
       position: relative;
+      border-radius: 2px;
+      transition: all 0.3s ease;
     }
 
-    .hamburger::before, .hamburger::after {
-      content: "";
+    .hamburger::before,
+    .hamburger::after {
+      content: '';
       position: absolute;
       left: 0;
     }
 
     .hamburger::before { top: -8px; }
     .hamburger::after { top: 8px; }
+
+    .nav-toggle.active .hamburger {
+      background-color: transparent;
+    }
+
+    .nav-toggle.active .hamburger::before {
+      transform: rotate(45deg);
+      top: 0;
+    }
+
+    .nav-toggle.active .hamburger::after {
+      transform: rotate(-45deg);
+      top: 0;
+    }
 
     main {
       position: relative;
@@ -224,22 +250,56 @@
 
     /* Mobile */
     @media (max-width: 768px) {
-      nav ul {
-        display: none;
-        flex-direction: column;
-        background-color: #53364e;
-        width: 100%;
-        position: absolute;
-        top: 100%;
-        left: 0;
+      header {
+        padding: 1rem 1.5rem;
       }
 
-      nav ul.active {
-        display: flex;
+      nav ul {
+        flex-direction: column;
+        background: #53364e;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 200px;
+        border-radius: 0 0 0 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      nav ul.open {
+        max-height: 500px;
+      }
+
+      nav li {
+        opacity: 1 !important;
+        transform: none !important;
+        margin: 0;
+      }
+
+      nav li + li {
+        border-top: 1px solid rgba(255,255,255,0.2);
+      }
+
+      nav a {
+        padding: 12px 20px;
+        display: block;
+        font-size: 1.2rem;
       }
 
       .nav-toggle {
         display: block;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        left: 0;
+      }
+
+      .container {
+        width: 95%;
+        padding: 15px;
       }
     }
   </style>
@@ -278,57 +338,65 @@
     <div class="product-item dress"><img src="assets/IMG_9924.jpg" alt="Dress 3"><p>Summer Dress</p></div>
     <div class="product-item dress"><img src="assets/IMG_9925.jpg" alt="Dress 4"><p>Floral Dress</p></div>
     <div class="product-item dress"><img src="assets/IMG_9926.jpg" alt="Dress 5"><p>Black Dress</p></div>
-    <div class="product-item dress"><img src="assets/IMG_9927.jpg" alt="Dress 6"><p>Evening Dress</p></div>
+    <div class="product-item dress"><img src="assets/IMG_9927.jpg" alt="Evening Dress"><p>Evening Dress</p></div>
 
     <!-- Skirts -->
     <div class="product-item skirt"><img src="assets/IMG_9928.jpg" alt="Skirt 1"><p>Pleated Skirt</p></div>
     <div class="product-item skirt"><img src="assets/IMG_9929.jpg" alt="Skirt 2"><p>Denim Skirt</p></div>
     <div class="product-item skirt"><img src="assets/IMG_9930.jpg" alt="Skirt 3"><p>Mini Skirt</p></div>
-    <div class="product-item skirt"><img src="assets/IMG_9932.jpg" alt="Skirt 4"><p>Leather Skirt</p></div>
-    <div class="product-item skirt"><img src="assets/IMG_9933.jpg" alt="Skirt 5"><p>Maxi Skirt</p></div>
-    <div class="product-item skirt"><img src="assets/IMG_9935.jpg" alt="Skirt 6"><p>Wrap Skirt</p></div>
+    <div class="product-item skirt"><img src="assets/IMG_9932.jpg" alt="Leather Skirt"><p>Leather Skirt</p></div>
+    <div class="product-item skirt"><img src="assets/IMG_9934.jpg" alt="Skirt 5"><p>Long Skirt</p></div>
   </section>
 
-  <div class="modal" id="imgModal"><img src="" alt="Expanded view"></div>
+  <div class="modal" id="modal"></div>
 
   <footer>
-    <p>&copy; 2025 Malli Dress Shop. All rights reserved.</p>
+    &copy; 2025 Malli Dress Shop. All rights reserved.
   </footer>
 
   <script>
-    // Filter buttons
-    document.querySelectorAll('.filter-controls button').forEach(button => {
-      button.addEventListener('click', () => {
-        const filter = button.getAttribute('data-filter');
-        document.querySelectorAll('.filter-controls button').forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        document.querySelectorAll('.product-item').forEach(item => {
-          item.classList.toggle('hide', filter !== 'all' && !item.classList.contains(filter));
-        });
-      });
-    });
-
-    // Burger menu toggle
+    // Mobile nav toggle
     const toggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('nav ul');
+
     toggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
+      toggle.classList.toggle('active');
+      navMenu.classList.toggle('open');
     });
 
-    // Lightbox modal
-    const modal = document.getElementById('imgModal');
-    const modalImg = modal.querySelector('img');
+    // Close mobile nav when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !toggle.contains(e.target)) {
+        toggle.classList.remove('active');
+        navMenu.classList.remove('open');
+      }
+    });
 
-    document.querySelectorAll('.product-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        modalImg.src = img.src;
-        modal.classList.add('show');
+    // Filter buttons functionality
+    const filterButtons = document.querySelectorAll('.filter-controls button');
+    const products = document.querySelectorAll('.product-item');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        button.classList.add('active');
+
+        const filter = button.getAttribute('data-filter');
+
+        products.forEach(product => {
+          if (filter === 'all') {
+            product.classList.remove('hide');
+          } else {
+            if (product.classList.contains(filter)) {
+              product.classList.remove('hide');
+            } else {
+              product.classList.add('hide');
+            }
+          }
+        });
       });
-    });
-
-    modal.addEventListener('click', () => {
-      modal.classList.remove('show');
     });
   </script>
 </body>

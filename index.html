@@ -4,116 +4,332 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Malli Dress Shop</title>
-  <!-- Google Fonts: Ballet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Ballet&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      font-family: 'Georgia', serif;
+      background-color: #fdf6e3;
+      color: #53364e;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background-color: #53364e;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 2.2rem;
+      font-family: 'Ballet', cursive;
+      position: relative;
+      animation: glow 3s infinite alternate;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background-color: #ddcb9f;
+      transition: width 0.3s ease-in-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .hamburger, .hamburger::before, .hamburger::after {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      display: block;
+      border-radius: 2px;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .hamburger::before, .hamburger::after {
+      content: "";
+      position: absolute;
+      left: 0;
+    }
+
+    .hamburger::before { top: -8px; }
+    .hamburger::after { top: 8px; }
+
+    main {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: url('assets/IMG_9919.jpg') center/cover no-repeat;
+    }
+
+    main::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    main h1 {
+      font-size: 3rem;
+      color: #f0dfc3;
+      padding: 1rem 2rem;
+      border-radius: 15px;
+      position: relative;
+      z-index: 1;
+      animation: pulseText 4s ease-in-out infinite;
+    }
+
+    @keyframes pulseText {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.85; }
+    }
+
+    .filter-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem auto;
+      flex-wrap: wrap;
+    }
+
+    .filter-controls button {
+      padding: 0.6rem 1.2rem;
+      background-color: #53364e;
+      color: #fdf6e3;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .filter-controls button.active,
+    .filter-controls button:hover {
+      background-color: #6e4d65;
+    }
+
+    .product-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      padding: 0 1rem;
+    }
+
+    .product-item {
+      width: 240px;
+      cursor: pointer;
+    }
+
+    .product-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .product-item:hover img {
+      transform: scale(1.03);
+    }
+
+    .product-item p {
+      margin-top: 0.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .product-item.hide {
+      display: none;
+    }
+
+    /* Lightbox Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      display: none;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal::after {
+      content: "×";
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2.5rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: #53364e;
+      color: #fdf6e3;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: #53364e;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo ballet-logo">Malli</div>
-        <button class="nav-toggle" aria-label="Toggle navigation">
-          <span class="hamburger"></span>
-        </button>
-        <nav>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="sale.html">Sale</a></li>
-          </ul>
-        </nav>
-      </header>
-      
+  <header>
+    <div class="logo">Malli</div>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span class="hamburger"></span>
+    </button>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="sale.html">Sale</a></li>
+        <li><a href="order.html">Order</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
-    <section class="hero">
-      <h1>Elegance in Every Stitch</h1>
-    </section>
+    <h1>Elegance in Every Stitch</h1>
   </main>
- 
-  
+
   <section class="filter-controls">
     <button data-filter="all" class="active">All</button>
     <button data-filter="dress">Dress</button>
     <button data-filter="skirt">Skirt</button>
-   
   </section>
-  
-  <section class="product-gallery">
-    <!-- 6 Dress images -->
-    <div class="product-item dress">
-      <img src="assets/IMG_9936.jpg" alt="Dress 1" />
-      <p>Elegant Red Dress</p>
-    </div>
-    <div class="product-item dress">
-      <img src="assets/IMG_9937.jpg" alt="Dress 2" />
-      <p>Silk Gown</p>
-    </div>
-    <div class="product-item dress">
-      <img src="assets/IMG_9924.jpg" alt="Dress 3" />
-      <p>Summer Dress</p>
-    </div>
-    <div class="product-item dress">
-      <img src="assets/IMG_9925.jpg" alt="Dress 4" />
-      <p>Floral Dress</p>
-    </div>
-    <div class="product-item dress">
-      <img src="assets/IMG_9926.jpg" alt="Dress 5" />
-      <p>Black Dress</p>
-    </div>
-    <div class="product-item dress">
-      <img src="assets/IMG_9927.jpg" alt ="Dress 6" />
-      <p>Evening Dress</p>
-    </div>
-  
-    <!-- 6 Skirt images -->
-    <div class="product-item skirt">
-      <img src="assets/IMG_9928.jpg" alt="Skirt 1" />
-      <p>Pleated Skirt</p>
-    </div>
-    <div class="product-item skirt">
-      <img src="assets/IMG_9929.jpg" alt="Skirt 2" />
-      <p>Denim Skirt</p>
-    </div>
-    <div class="product-item skirt">
-      <img src="assets/IMG_9930.jpg" alt="Skirt 3" />
-      <p>Mini Skirt</p>
-    </div>
-    <div class="product-item skirt">
-      <img src="assets/IMG_9932.jpg" alt="Skirt 4" />
-      <p>Leather Skirt</p>
-    </div>
-    <div class="product-item skirt">
-      <img src="assets/IMG_9933.jpg" alt="Skirt 5" />
-      <p>Maxi Skirt</p>
-    </div>
-    <div class="product-item skirt">
-      <img src="assets/IMG_9935.jpg" alt="Skirt 6" />
-      <p>Wrap Skirt</p>
-    </div>
-  
-   
-  </section>
-  
-  <div class="carousel">
-    <button class="carousel-button prev">&#10094;</button>
-    <div class="carousel-track-container">
-      <ul class="carousel-track">
-        <li class="carousel-slide current-slide"><img src="https://via.placeholder.com/800x400?text=Slide+1" alt="Slide 1"></li>
-        <li class="carousel-slide"><img src="https://via.placeholder.com/800x400?text=Slide+2" alt="Slide 2"></li>
-        <li class="carousel-slide"><img src="https://via.placeholder.com/800x400?text=Slide+3" alt="Slide 3"></li>
-      </ul>
-    </div>
-    <button class="carousel-button next">&#10095;</button>
-  </div>
 
-  
+  <section class="product-gallery">
+    <!-- Dresses -->
+    <div class="product-item dress"><img src="assets/IMG_9936.jpg" alt="Dress 1"><p>Elegant Red Dress</p></div>
+    <div class="product-item dress"><img src="assets/IMG_9937.jpg" alt="Dress 2"><p>Silk Gown</p></div>
+    <div class="product-item dress"><img src="assets/IMG_9924.jpg" alt="Dress 3"><p>Summer Dress</p></div>
+    <div class="product-item dress"><img src="assets/IMG_9925.jpg" alt="Dress 4"><p>Floral Dress</p></div>
+    <div class="product-item dress"><img src="assets/IMG_9926.jpg" alt="Dress 5"><p>Black Dress</p></div>
+    <div class="product-item dress"><img src="assets/IMG_9927.jpg" alt="Dress 6"><p>Evening Dress</p></div>
+
+    <!-- Skirts -->
+    <div class="product-item skirt"><img src="assets/IMG_9928.jpg" alt="Skirt 1"><p>Pleated Skirt</p></div>
+    <div class="product-item skirt"><img src="assets/IMG_9929.jpg" alt="Skirt 2"><p>Denim Skirt</p></div>
+    <div class="product-item skirt"><img src="assets/IMG_9930.jpg" alt="Skirt 3"><p>Mini Skirt</p></div>
+    <div class="product-item skirt"><img src="assets/IMG_9932.jpg" alt="Skirt 4"><p>Leather Skirt</p></div>
+    <div class="product-item skirt"><img src="assets/IMG_9933.jpg" alt="Skirt 5"><p>Maxi Skirt</p></div>
+    <div class="product-item skirt"><img src="assets/IMG_9935.jpg" alt="Skirt 6"><p>Wrap Skirt</p></div>
+  </section>
+
+  <div class="modal" id="imgModal"><img src="" alt="Expanded view"></div>
+
   <footer>
     <p>&copy; 2025 Malli Dress Shop. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Filter buttons
+    document.querySelectorAll('.filter-controls button').forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        document.querySelectorAll('.filter-controls button').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        document.querySelectorAll('.product-item').forEach(item => {
+          item.classList.toggle('hide', filter !== 'all' && !item.classList.contains(filter));
+        });
+      });
+    });
+
+    // Burger menu toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('nav ul');
+    toggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // Lightbox modal
+    const modal = document.getElementById('imgModal');
+    const modalImg = modal.querySelector('img');
+
+    document.querySelectorAll('.product-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modal.classList.add('show');
+      });
+    });
+
+    modal.addEventListener('click', () => {
+      modal.classList.remove('show');
+    });
+  </script>
 </body>
 </html>

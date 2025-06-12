@@ -16,8 +16,8 @@
     html, body {
       height: 100%;
       font-family: 'Georgia', serif;
-      background-color: #fdf6e3;
-      color: #7b1e1e;
+      background-color: #f5f0e6; /* beige background */
+      color: #53364e; /* deep purple text */
       display: flex;
       flex-direction: column;
       opacity: 0;
@@ -43,13 +43,13 @@
 
     /* Header */
     header {
-      background-color: #8b0000;
-      color: white;
+      background-color: #53364e; /* deep purple background */
+      color: #f5f0e6; /* beige text */
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.2rem 2rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(83, 54, 78, 0.4);
       position: relative;
     }
 
@@ -96,7 +96,7 @@
     }
 
     nav a {
-      color: white;
+      color: #f5f0e6; /* beige */
       text-decoration: none;
       font-size: 1.1rem;
       position: relative;
@@ -111,7 +111,7 @@
       height: 2px;
       bottom: -4px;
       left: 0;
-      background-color: #fdf6e3;
+      background-color: #f5f0e6; /* beige underline */
       transition: width 0.3s ease;
     }
 
@@ -120,7 +120,7 @@
     }
 
     nav a:hover {
-      color: #f5f5dc;
+      color: #e3d9ca; /* lighter beige on hover */
       transform: scale(1.08);
     }
 
@@ -139,7 +139,7 @@
     .hamburger::after {
       content: "";
       display: block;
-      background-color: white;
+      background-color: #f5f0e6; /* beige hamburger lines */
       height: 3px;
       width: 25px;
       border-radius: 2px;
@@ -204,7 +204,7 @@
       align-items: center;
       font-size: 3rem;
       font-weight: bold;
-      color: white;
+      color: #f5f0e6; /* beige */
       text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
       text-align: center;
       padding: 0 20px;
@@ -216,6 +216,7 @@
       padding: 0 20px;
       font-size: 1.5rem;
       text-align: center;
+      color: #53364e;
     }
 
     /* Card Gallery */
@@ -227,7 +228,7 @@
     .card-gallery h2 {
       font-size: 2rem;
       margin-bottom: 2rem;
-      color: #8b0000;
+      color: #53364e;
     }
 
     .cards {
@@ -246,13 +247,14 @@
     .card img {
       width: 100%;
       border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(83, 54, 78, 0.1);
     }
 
     .card p {
       margin-top: 0.5rem;
       font-weight: bold;
-      color: #7b1e1e;
+      color: #53364e;
+      text-transform: capitalize;
     }
 
     .card:hover {
@@ -260,8 +262,8 @@
     }
 
     footer {
-      background-color: #8b0000;
-      color: #fdf6e3;
+      background-color: #53364e;
+      color: #f5f0e6;
       text-align: center;
       padding: 1rem;
       font-size: 0.95rem;
@@ -277,7 +279,7 @@
         display: none;
         flex-direction: column;
         width: 100%;
-        background-color: #8b0000;
+        background-color: #53364e;
         position: absolute;
         top: 100%;
         left: 0;
@@ -335,6 +337,7 @@
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="sale.html">Sale</a></li>
+        <li><a href="order.html">Order</a></li>
       </ul>
     </nav>
   </header>

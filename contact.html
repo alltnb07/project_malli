@@ -6,8 +6,8 @@
   <title>Contact Us</title>
   <style>
     :root {
-      --deep-red: #8B0000;
-      --beige: #F5F5DC;
+      --accent: #53364e;
+      --beige: #f5f5dc;
       --dark: #2e2e2e;
       --light: #fffaf0;
     }
@@ -16,80 +16,41 @@
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--beige);
-      color: var(--dark);
+      color: var(--accent);
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
     }
+
     footer {
-      background-color: #8b0000;
-      color: #fdf6e3;
+      background-color: var(--accent);
+      color: var(--beige);
       text-align: center;
       padding: 1rem;
       font-size: 0.95rem;
       opacity: 0;
       animation: fadeInFooter 1.2s ease 1.8s forwards;
-
       width: 100vw;
       margin-left: calc(-50vw + 50%);
       box-sizing: border-box;
     }
 
     @keyframes fadeInFooter {
-      to {
-        opacity: 1;
-      }
+      to { opacity: 1; }
     }
 
     header {
-      background: var(--deep-red);
+      background-color: var(--accent);
       color: white;
       width: 100%;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 2em;
-      animation: fadeIn 1s ease;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: 'Georgia', serif;
-      background-color: #fdf6e3;
-      color: #7b1e1e;
       display: flex;
-      flex-direction: column;
-      opacity: 0;
-      animation: fadeInBody 1.2s ease forwards;
-      scroll-behavior: smooth; /* Added smooth scroll */
-    }
-
-    @keyframes fadeInBody {
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* Allow main content to push footer to bottom */
-    main {
-      flex: 1;
-    }
-
-    /* Header */
-    header {
-      background-color: #8b0000;
-      color: white;
-      display: flex;
-      justify-content: space-between; /* Logo left, burger right */
+      justify-content: space-between;
       align-items: center;
       padding: 1.2rem 2rem;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       position: relative;
+      z-index: 1000;
     }
 
     .logo {
@@ -110,7 +71,6 @@
       }
     }
 
-    /* Navigation */
     nav ul {
       list-style: none;
       display: flex;
@@ -144,6 +104,9 @@
       position: relative;
       transition: all 0.3s ease;
       overflow: hidden;
+      z-index: 1;
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
     }
 
     nav a::after {
@@ -153,7 +116,7 @@
       height: 2px;
       bottom: -4px;
       left: 0;
-      background-color: #fdf6e3;
+      background-color: var(--beige);
       transition: width 0.3s ease;
     }
 
@@ -181,9 +144,17 @@
     }
 
     nav a:hover {
-      color: #f5f5dc;
+      color: var(--beige);
       transform: scale(1.08);
     }
+
+    main {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
     .container {
       max-width: 800px;
       width: 90%;
@@ -197,7 +168,7 @@
 
     .whatsapp-button {
       display: inline-block;
-      background: var(--deep-red);
+      background: var(--accent);
       color: white;
       padding: 15px 25px;
       border-radius: 8px;
@@ -208,7 +179,7 @@
     }
 
     .whatsapp-button:hover {
-      background: #a60000;
+      background: #6b2c5f;
       transform: scale(1.05);
     }
 
@@ -228,7 +199,7 @@
       background: #fff4f4;
       margin-bottom: 10px;
       padding: 10px;
-      border-left: 5px solid var(--deep-red);
+      border-left: 5px solid var(--accent);
       border-radius: 5px;
       transition: background 0.3s;
     }
@@ -244,10 +215,13 @@
       border: 1px solid #ccc;
       padding: 10px;
       resize: none;
+      font-family: inherit;
+      font-size: 1rem;
+      box-sizing: border-box;
     }
 
     button {
-      background: var(--deep-red);
+      background: var(--accent);
       color: white;
       padding: 10px 20px;
       border: none;
@@ -255,152 +229,140 @@
       margin-top: 10px;
       cursor: pointer;
       transition: background 0.3s ease, transform 0.2s ease;
+      font-size: 1rem;
+      font-family: inherit;
     }
 
     button:hover {
-      background: #a60000;
+      background: #6b2c5f;
       transform: translateY(-2px);
     }
-    
+
     .info {
       margin-top: 30px;
       font-size: 1em;
       background: #f9f1e7;
       padding: 15px;
       border-radius: 8px;
+      color: var(--accent);
     }
 
     @keyframes slideUp {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }/* Add this at the end of your existing styles */
+    /* Hamburger styles */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+    }
 
-/* Responsive Navigation */
-.nav-toggle {
-  display: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 10;
-}
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      display: block;
+      position: relative;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
 
-.hamburger,
-.hamburger::before,
-.hamburger::after {
-  width: 25px;
-  height: 3px;
-  background-color: white;
-  display: block;
-  position: relative;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
+    .hamburger::before,
+    .hamburger::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
 
-.hamburger::before,
-.hamburger::after {
-  content: '';
-  position: absolute;
-  left: 0;
-}
+    .hamburger::before { top: -8px; }
+    .hamburger::after { top: 8px; }
 
-.hamburger::before {
-  top: -8px;
-}
+    .nav-toggle.active .hamburger {
+      background-color: transparent;
+    }
 
-.hamburger::after {
-  top: 8px;
-}
+    .nav-toggle.active .hamburger::before {
+      transform: rotate(45deg);
+      top: 0;
+    }
 
-/* When nav-toggle is active (open) */
-.nav-toggle.active .hamburger {
-  background-color: transparent;
-}
-.nav-toggle.active .hamburger::before {
-  transform: rotate(45deg);
-  top: 0;
-}
-.nav-toggle.active .hamburger::after {
-  transform: rotate(-45deg);
-  top: 0;
-}
+    .nav-toggle.active .hamburger::after {
+      transform: rotate(-45deg);
+      top: 0;
+    }
 
-/* Small screen styles */
-@media (max-width: 768px) {
-  header {
-    padding: 1rem 1.5rem;
-  }
-  nav ul {
-    flex-direction: column;
-    background: var(--deep-red);
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 200px;
-    border-radius: 0 0 0 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
 
-  nav ul.open {
-    max-height: 500px; /* enough height to show all items */
-  }
+      nav ul {
+        flex-direction: column;
+        background: var(--accent);
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 200px;
+        border-radius: 0 0 0 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
 
-  nav li {
-    opacity: 1 !important; /* override animation */
-    transform: none !important;
-    margin: 0;
-  }
+      nav ul.open {
+        max-height: 500px;
+      }
 
-  nav li + li {
-    border-top: 1px solid rgba(255,255,255,0.2);
-  }
+      nav li {
+        opacity: 1 !important;
+        transform: none !important;
+        margin: 0;
+      }
 
-  nav a {
-    padding: 12px 20px;
-    display: block;
-    font-size: 1.2rem;
-  }
+      nav li + li {
+        border-top: 1px solid rgba(255,255,255,0.2);
+      }
 
-  .nav-toggle {
-    display: block;
-  }
+      nav a {
+        padding: 12px 20px;
+        display: block;
+        font-size: 1.2rem;
+      }
 
-  .logo {
-    font-size: 1.8rem;
-    left: 0;
-  }
+      .nav-toggle {
+        display: block;
+      }
 
-  .container {
-    width: 95%;
-    padding: 15px;
-  }
+      .logo {
+        font-size: 1.8rem;
+        left: 0;
+      }
 
-  .whatsapp-button {
-    width: 100%;
-    text-align: center;
-    padding: 12px;
-    font-size: 1.2rem;
-  }
-}
+      .container {
+        width: 95%;
+        padding: 15px;
+      }
 
+      .whatsapp-button {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        font-size: 1.2rem;
+      }
+    }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ballet&display=swap" rel="stylesheet" />
 </head>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Ballet&display=swap" rel="stylesheet" />
+
 <body>
   <header>
     <div class="logo ballet-logo">Malli</div>
@@ -413,33 +375,36 @@
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="sale.html">Sale</a></li>
+        <li><a href="order.html">Order</a></li>
       </ul>
     </nav>
   </header>
 
-  <div class="container">
-    <a class="whatsapp-button" target="_blank" href="https://wa.me/77005554173">
-      📱 Chat with us on WhatsApp
-    </a>
+  <main>
+    <div class="container">
+      <a class="whatsapp-button" target="_blank" href="https://wa.me/77005554173" rel="noopener noreferrer">
+        📱 Chat with us on WhatsApp
+      </a>
 
-    <div class="feedback-section">
-      <h2>Customer Feedback</h2>
-      <ul class="feedback-list" id="feedbackList">
-        <li>Great service and very responsive!</li>
-        <li>Highly recommend contacting them through WhatsApp.</li>
-      </ul>
+      <div class="feedback-section">
+        <h2>Customer Feedback</h2>
+        <ul class="feedback-list" id="feedbackList">
+          <li>Great service and very responsive!</li>
+          <li>Highly recommend contacting them through WhatsApp.</li>
+        </ul>
 
-      <textarea id="feedbackInput" placeholder="Write your feedback..."></textarea>
-      <button onclick="submitFeedback()">Submit Feedback</button>
+        <textarea id="feedbackInput" placeholder="Write your feedback..."></textarea>
+        <button onclick="submitFeedback()">Submit Feedback</button>
+      </div>
+
+      <div class="info">
+        <h3>Working Hours & Location</h3>
+        <p><strong>📍 Locations:</strong> Kazakhstan - Almaty & Astana</p>
+        <p><strong>🕒 Working Hours:</strong> Monday to Saturday: 9:00 AM – 6:00 PM</p>
+        <p><strong>📞 Phone:</strong> +7 700 555 4173</p>
+      </div>
     </div>
-
-    <div class="info">
-      <h3>Working Hours & Location</h3>
-      <p><strong>📍 Locations:</strong> Kazakhstan - Almaty & Astana</p>
-      <p><strong>🕒 Working Hours:</strong> Monday to Saturday: 9:00 AM – 6:00 PM</p>
-      <p><strong>📞 Phone:</strong> +7 700 555 4173</p>
-    </div>
-  </div>
+  </main>
 
   <footer>
     &copy; 2025 Malli Dress Shop. All rights reserved.
@@ -452,20 +417,21 @@
 
       if (input.value.trim() !== "") {
         const newFeedback = document.createElement('li');
-        newFeedback.textContent = input.value;
+        newFeedback.textContent = input.value.trim();
         feedbackList.appendChild(newFeedback);
         input.value = "";
       }
-    }document.addEventListener('DOMContentLoaded', () => {
-  const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.querySelector('nav ul');
+    }
 
-  navToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('open');
-    navToggle.classList.toggle('active');
-  });
-});
+    document.addEventListener('DOMContentLoaded', () => {
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.querySelector('nav ul');
 
+      navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+        navToggle.classList.toggle('active');
+      });
+    });
   </script>
 </body>
 </html>

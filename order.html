@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order - Malli Dress Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ballet&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Georgia', serif;
+      background-color: #f5f0e6;
+      color: #53364e;
+      scroll-behavior: smooth;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background-color: #53364e;
+      color: #f5f0e6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      box-shadow: 0 2px 10px rgba(83, 54, 78, 0.4);
+      position: relative;
+    }
+
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 400;
+      font-family: 'Ballet', cursive;
+      cursor: default;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li a {
+      color: #f5f0e6;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+    nav li a:hover, nav li a.active {
+      color: #e3d9ca;
+      text-decoration: underline;
+    }
+
+    /* Hamburger for mobile */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 1001;
+    }
+
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
+      content: "";
+      display: block;
+      background-color: #f5f0e6;
+      height: 3px;
+      width: 25px;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .hamburger::before,
+    .hamburger::after {
+      position: absolute;
+      left: 0;
+    }
+
+    .hamburger::before {
+      top: -8px;
+    }
+
+    .hamburger::after {
+      top: 8px;
+    }
+
+    .nav-toggle.active .hamburger {
+      background-color: transparent;
+    }
+
+    .nav-toggle.active .hamburger::before {
+      transform: rotate(45deg);
+      top: 0;
+    }
+
+    .nav-toggle.active .hamburger::after {
+      transform: rotate(-45deg);
+      top: 0;
+    }
+
+    nav {
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+      }
+
+      nav ul {
+        flex-direction: column;
+        background-color: #53364e;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        display: none;
+        margin: 0;
+        padding: 1rem 0;
+      }
+      nav.open ul {
+        display: flex;
+      }
+
+      nav li {
+        text-align: center;
+        padding: 0.5rem 0;
+      }
+    }
+
+    /* Main content styles */
+    main {
+      flex: 1;
+      max-width: 600px;
+      margin: 3rem auto 4rem;
+      background: #fff;
+      padding: 2rem 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(83, 54, 78, 0.2);
+    }
+
+    h1 {
+      color: #53364e;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      font-size: 2.5rem;
+      font-family: 'Ballet', cursive;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #53364e;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      font-size: 1rem;
+      border: 2px solid #53364e;
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+    }
+    input[type="number"]:focus {
+      border-color: #8b5fbf;
+      outline: none;
+      box-shadow: 0 0 8px rgba(139, 95, 191, 0.5);
+    }
+
+    .size-result {
+      margin-top: 1rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-align: center;
+      color: #8b5fbf;
+    }
+
+    button {
+      margin-top: 2rem;
+      background-color: #53364e;
+      color: #f5f0e6;
+      border: none;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #8b5fbf;
+    }
+
+    /* Instructions */
+    .instructions {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      color: #53364e;
+      line-height: 1.4;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo ballet-logo">Malli</div>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span class="hamburger"></span>
+    </button>
+    <nav>
+      <ul>
+        <li><a href="index.html" >Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="sale.html">Sale</a></li>
+        <li><a href="order.html" class="active">Order</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>How to Order Your Perfect Size</h1>
+    <p class="instructions">Please enter your body measurements in centimeters. Based on these, we will suggest the best size for you. Then click the button below to send your order details via WhatsApp.</p>
+
+    <form id="sizeForm" onsubmit="sendOrder(event)">
+      <label for="bust">Bust (cm)</label>
+      <input type="number" id="bust" name="bust" min="60" max="150" required />
+
+      <label for="waist">Waist (cm)</label>
+      <input type="number" id="waist" name="waist" min="50" max="140" required />
+
+      <label for="hips">Hips (cm)</label>
+      <input type="number" id="hips" name="hips" min="70" max="160" required />
+
+      <label for="height">Height (cm)</label>
+      <input type="number" id="height" name="height" min="140" max="210" required />
+
+      <div class="size-result" id="sizeResult">Your size: -</div>
+
+      <button type="submit">Order via WhatsApp</button>
+    </form>
+  </main>
+
+  <script>
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('nav');
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+
+    // Size calculation logic
+    // Sample size chart (can be adjusted)
+    // Sizes based on bust, waist, hips (cm)
+    const sizeChart = [
+      { size: 'S', bust: 84, waist: 66, hips: 90, heightMin: 150, heightMax: 165 },
+      { size: 'M', bust: 90, waist: 72, hips: 96, heightMin: 160, heightMax: 175 },
+      { size: 'L', bust: 96, waist: 78, hips: 102, heightMin: 170, heightMax: 185 },
+      { size: 'XL', bust: 102, waist: 84, hips: 108, heightMin: 175, heightMax: 195 },
+    ];
+
+    const bustInput = document.getElementById('bust');
+    const waistInput = document.getElementById('waist');
+    const hipsInput = document.getElementById('hips');
+    const heightInput = document.getElementById('height');
+    const sizeResult = document.getElementById('sizeResult');
+
+    function calculateSize() {
+      const bust = Number(bustInput.value);
+      const waist = Number(waistInput.value);
+      const hips = Number(hipsInput.value);
+      const height = Number(heightInput.value);
+
+      if (!bust || !waist || !hips || !height) {
+        sizeResult.textContent = 'Your size: -';
+        return;
+      }
+
+      // Find closest size by comparing input to size chart
+      // We’ll pick the size where bust, waist, hips are >= input and height in range
+      let matched = sizeChart.find(size => {
+        return bust <= size.bust && waist <= size.waist && hips <= size.hips &&
+               height >= size.heightMin && height <= size.heightMax;
+      });
+
+      if (!matched) {
+        // If no perfect fit, find closest by bust difference and height
+        matched = sizeChart.reduce((prev, curr) => {
+          const prevDiff = Math.abs(bust - prev.bust) + Math.abs(waist - prev.waist) + Math.abs(hips - prev.hips);
+          const currDiff = Math.abs(bust - curr.bust) + Math.abs(waist - curr.waist) + Math.abs(hips - curr.hips);
+          if (currDiff < prevDiff && height >= curr.heightMin && height <= curr.heightMax) {
+            return curr;
+          }
+          return prev;
+        }, sizeChart[0]);
+      }
+
+      sizeResult.textContent = `Your size: ${matched.size}`;
+      return matched.size;
+    }
+
+    // Update size live when inputs change
+    [bustInput, waistInput, hipsInput, heightInput].forEach(input => {
+      input.addEventListener('input', calculateSize);
+    });
+
+    // WhatsApp order sending
+    function sendOrder(event) {
+      event.preventDefault();
+
+      const bust = bustInput.value.trim();
+      const waist = waistInput.value.trim();
+      const hips = hipsInput.value.trim();
+      const height = heightInput.value.trim();
+      const size = calculateSize();
+
+      if (!bust || !waist || !hips || !height) {
+        alert('Please fill all measurement fields.');
+        return;
+      }
+
+      const phone = "77751062140";
+// WhatsApp number without "+" and spaces
+      const message = `Hello! I would like to order a dress.\nMy measurements:\n- Bust: ${bust} cm\n- Waist: ${waist} cm\n- Hips: ${hips} cm\n- Height: ${height} cm\nSuggested size: ${size}`;
+
+      // Encode message for URL
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
